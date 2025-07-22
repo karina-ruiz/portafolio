@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<section class="bg-white py-20 max-w-3xl mx-auto px-4">
+  <h1 class="text-5xl font-extrabold text-blue-700 leading-tight text-center mb-8">
+    {{ page.title }}
+  </h1>
+  <form method="post" class="space-y-6">
+    {% csrf_token %}
+    {% for field in form %}
+      <div>
+        <label for="{{ field.id_for_label }}" class="block font-semibold mb-1 text-gray-700">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+          <p class="text-red-600 text-sm mt-1">{{ field.errors }}</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <button type="submit" class="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold transition">
+      Enviar
+    </button>
+  </form>
+  {% if form_submitted %}
+    <div class="mt-8 p-4 bg-green-100 text-green-800 rounded">
+      {{ page.gracias|richtext }}
+    </div>
+  {% endif %}
+</section>
+{% endblock %}
