@@ -1,5 +1,4 @@
 {% load static wagtailcore_tags wagtailuserbar %}
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -22,40 +21,77 @@
         <base target="_blank">
     {% endif %}
 
-    <!-- ✅ Tailwind CSS desde CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+    <!-- ✅ Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #1f2937; /* gris oscuro */
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .navbar-custom {
+            background-color: #1e3a8a; /* azul oscuro */
+        }
+        .navbar-custom .nav-link,
+        .navbar-custom .navbar-brand {
+            color: white;
+        }
+        .navbar-custom .nav-link:hover {
+            background-color: #1e40af; /* azul más fuerte */
+            color: white;
+        }
+        .btn-accent {
+            background-color: #10b981; /* verde profesional */
+            color: white;
+        }
+        .btn-accent:hover {
+            background-color: #0f766e; /* verde más oscuro al hacer hover */
+        }
+        footer {
+            background-color: #4b5563; /* gris acero */
+            color: white;
+        }
+    </style>
 
     {% block extra_css %}{% endblock %}
 </head>
 
-<body class="bg-white text-gray-800 font-sans antialiased">
+<body>
     {% wagtailuserbar %}
 
-    <!-- ✅ HEADER -->
-    <header class="bg-blue-700 text-white shadow-md">
-        <div class="max-w-7xl mx-auto px-4 py-5 flex justify-between items-center">
-            <a href="/" class="text-2xl font-bold tracking-wide">Software Pro</a>
-            <nav class="space-x-6 text-sm font-medium">
-                <a href="/" class="hover:text-emerald-300 transition">Inicio</a>
-                <a href="/servicios/" class="hover:text-emerald-300 transition">Servicios</a>
-                <a href="/proyectos/" class="hover:text-emerald-300 transition">Proyectos</a>
-                <a href="/about/" class="hover:text-emerald-300 transition">Sobre mí</a>
-                <a href="/contacto/" class="hover:text-emerald-300 transition">Contacto</a>
-            </nav>
+    <!-- ✅ NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-custom shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/">Software Pro</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="mainNav">
+                <ul class="navbar-nav gap-2">
+                    <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/servicios/">Servicios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/proyectos/">Proyectos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about/">Sobre mí</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contacto/">Contacto</a></li>
+                </ul>
+            </div>
         </div>
-    </header>
+    </nav>
 
     <!-- ✅ CONTENIDO PRINCIPAL -->
-    <main class="max-w-7xl mx-auto px-4 py-12">
+    <main class="container py-5">
         {% block content %}
         {% endblock %}
     </main>
 
     <!-- ✅ FOOTER -->
-    <footer class="bg-gray-100 border-t border-gray-200 text-center py-6 text-sm text-gray-500">
-        <p>&copy; {{ now|date:"Y" }} Software Pro. Todos los derechos reservados.</p>
+    <footer class="text-center py-4 mt-5">
+        <p class="mb-0">&copy; {{ now|date:"Y" }} Software Pro. Todos los derechos reservados.</p>
     </footer>
 
+    <!-- ✅ Bootstrap JS -->
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>
