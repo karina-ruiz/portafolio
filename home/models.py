@@ -23,7 +23,7 @@ class HomePage(Page):
     content_panels = Page.content_panels + [
         FieldPanel("subtitulo"),
         FieldPanel("introduccion"),
-        FieldPanel("imagen_destacada"),  # 👈 corregido
+        FieldPanel("imagen_destacada"), 
         FieldPanel("cta_texto"),
         FieldPanel("cta_enlace"),
     ]
@@ -46,7 +46,7 @@ class AboutPage(Page):
         FieldPanel("biografia"),
         FieldPanel("años_experiencia"),
         FieldPanel("tecnologias_destacadas"),
-        FieldPanel("imagen_perfil"),  # 👈 corregido
+        FieldPanel("imagen_perfil"),  
     ]
 
 
@@ -104,7 +104,7 @@ class ProyectoPage(Page):
         FieldPanel("resumen"),
         FieldPanel("tecnologias"),
         FieldPanel("fecha"),
-        FieldPanel("imagen"),  # 👈 corregido
+        FieldPanel("imagen"), 
         FieldPanel("enlace_demo"),
     ]
 
