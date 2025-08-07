@@ -95,13 +95,13 @@ class ServiciosItem(Page):
 
 # --- PROYECTOS INDEX PAGE ---
 class ProyectosIndexPage(Page):
-    intro = RichTextField(blank=True, help_text="Introducción para la sección de proyectos")
+    intro = RichTextField(blank=True)
 
-    content_panels = Page.content_panels + [
-        FieldPanel('intro'),
-    ]
-
-    subpage_types = ['home.ProyectoPage']
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        proyectos = ProyectoPage.objects.child_of(self).live().order_by('-fecha')
+        context['proyectos'] = proyectos
+        return context
 
 
 # --- PROYECTO PAGE ---

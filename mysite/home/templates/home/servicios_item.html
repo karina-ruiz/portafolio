@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block content %}
+  <h1>{{ page.titulo }}</h1>
+  {% if page.icono %}
+    {% image page.icono original as icon %}
+      <img src="{{ icon.url }}" alt="{{ page.titulo }}">
+    {% endimage %}
+  {% endif %}
+  <div>{{ page.descripcion }}</div>
+  {% if page.enlace %}
+    <a href="{{ page.enlace }}">Más información</a>
+  {% endif %}
+{% endblock %}

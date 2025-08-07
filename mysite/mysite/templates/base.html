@@ -1,46 +1,35 @@
-{% load static wagtailcore_tags wagtailuserbar %}
-
+{% load static wagtailcore_tags %}
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>
-            {% block title %}
-            {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}
-            {% endblock %}
-            {% block title_suffix %}
-            {% wagtail_site as current_site %}
-            {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
-            {% endblock %}
-        </title>
-        {% if page.search_description %}
-        <meta name="description" content="{{ page.search_description }}" />
-        {% endif %}
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>
+    {% block title %}
+      {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}
+    {% endblock %}
+    {% block title_suffix %}
+      {% wagtail_site as site %}
+      {% if site and site.site_name %} | {{ site.site_name }}{% endif %}
+    {% endblock %}
+  </title>
+  {% if page.search_description %}
+    <meta name="description" content="{{ page.search_description }}">
+  {% endif %}
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        {# Force all links in the live preview panel to be opened in a new tab #}
-        {% if request.in_preview_panel %}
-        <base target="_blank">
-        {% endif %}
+  <link rel="stylesheet" href="{% static 'css/mysite.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+  {% include "includes/header.html" %}
 
-        {# Global stylesheets #}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/mysite.css' %}">
+  <main>
+    {% block content %}{% endblock %}
+  </main>
 
-        {% block extra_css %}
-        {# Override this in templates to add extra stylesheets #}
-        {% endblock %}
-    </head>
+  {% include "includes/footer.html" %}
 
-    <body class="{% block body_class %}{% endblock %}">
-        {% wagtailuserbar %}
-
-        {% block content %}{% endblock %}
-
-        {# Global javascript #}
-        <script type="text/javascript" src="{% static 'js/mysite.js' %}"></script>
-
-        {% block extra_js %}
-        {# Override this in templates to add extra javascript #}
-        {% endblock %}
-    </body>
+  <script src="{% static 'js/mysite.js' %}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
 </html>

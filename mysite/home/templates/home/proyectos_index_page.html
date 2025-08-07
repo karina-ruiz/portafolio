@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ page.title }}</h1>
+  <p>{{ page.intro|richtext }}</p>
+
+  {% if proyectos %}
+    <ul>
+      {% for proyecto in proyectos %}
+        <li>
+          <a href="{% pageurl proyecto %}">{{ proyecto.title }}</a>
+          <p>{{ proyecto.fecha }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No hay proyectos disponibles.</p>
+  {% endif %}
+{% endblock %}
