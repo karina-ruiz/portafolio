@@ -1,14 +1,13 @@
-{% extends "base.html" %}
-{% load wagtailcore_tags %}
+{% extends 'base.html' %}
+
+{% block title %}Bienvenido a Mi Sitio{% endblock %}
 
 {% block content %}
-  <h1>{{ page.title }}</h1>
-  <h2>{{ page.subtitulo }}</h2>
-  <div>{{ page.introduccion|richtext }}</div>
-  {% if page.imagen_destacada %}
-    <img src="{{ page.imagen_destacada.url }}" alt="">
-  {% endif %}
-  {% if page.cta_texto and page.cta_enlace %}
-    <a href="{{ page.cta_enlace }}">{{ page.cta_texto }}</a>
-  {% endif %}
+  <div class="jumbotron text-center">
+    <h1 class="display-4">¡Bienvenido a Mi Sitio!</h1>
+    <p class="lead">Aquí encontrarás información sobre nuestros proyectos y servicios.</p>
+    <hr class="my-4">
+    <p>Explora nuestras secciones para conocer más.</p>
+    <a class="btn btn-primary btn-lg" href="#" role="button">Comenzar</a>
+  </div>
 {% endblock %}
