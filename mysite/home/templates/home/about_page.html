@@ -1,20 +1,43 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
+
+{% block title %}Sobre mí{% endblock %}
+
 {% block content %}
-  <h1>{{ page.title }}</h1>
-  <div>{{ page.biografia|richtext }}</div>
-  <p><strong>Años de experiencia:</strong> {{ page.anios_experiencia }}</p>
-  {% if page.imagen_perfil %}
-    {% image page.imagen_perfil original as img %}
-      <img src="{{ img.url }}" alt="Perfil de {{ page.title }}">
-    {% endimage %}
-  {% endif %}
+<div class="container py-5">
+  <div class="row align-items-center">
+
+    {% if page.imagen_perfil %}
+      <div class="col-md-5 mb-4 mb-md-0 text-center">
+        {% image page.imagen_perfil original class="img-fluid rounded-circle shadow-lg" alt="Imagen de perfil" %}
+      </div>
+    {% endif %}
+
+    <div class="col-md-7">
+      <h1 class="display-5 fw-bold text-primary mb-3">Sobre mí</h1>
+
+      {% if page.biografia %}
+        <div class="intro-section lead lh-lg mb-4">
+          {{ page.biografia|richtext }}
+        </div>
+      {% endif %}
+
+      {% if page.anios_experiencia %}
+        <p class="text-secondary mb-3">
+          <strong>Años de experiencia:</strong> <span class="text-primary">{{ page.anios_experiencia }}</span>
+        </p>
+      {% endif %}
+    </div>
+  </div>
+
   {% if page.tecnologias_destacadas %}
-    <h3>Tecnologías destacadas</h3>
-    <ul>
-      {% for tech in page.tecnologias_destacadas %}
-        <li>{{ tech.value }}</li>
+    <hr class="my-5">
+    <h2 class="h4 text-center text-secondary mb-4">Tecnologías que domino</h2>
+    <div class="d-flex flex-wrap justify-content-center gap-3">
+      {% for bloque in page.tecnologias_destacadas %}
+        <span class="badge badge-accent py-2 px-3">{{ bloque.value }}</span>
       {% endfor %}
-    </ul>
+    </div>
   {% endif %}
+</div>
 {% endblock %}

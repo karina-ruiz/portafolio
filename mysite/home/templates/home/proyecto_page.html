@@ -1,24 +1,40 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
+
+{% block title %}{{ page.title }} | Proyecto{% endblock %}
+
 {% block content %}
-  <h1>{{ page.title }}</h1>
-  {% if page.cliente %}<p><strong>Cliente:</strong> {{ page.cliente }}</p>{% endif %}
-  <p>{{ page.resumen|richtext }}</p>
-  <p><strong>Fecha:</strong> {{ page.fecha }}</p>
-  {% if page.imagen %}
-    {% image page.imagen original as img %}
-      <img src="{{ img.url }}" alt="{{ page.title }}">
-    {% endimage %}
-  {% endif %}
-  {% if page.tecnologias %}
-    <h3>Tecnologías usadas</h3>
-    <ul>
-      {% for tech in page.tecnologias %}
-        <li>{{ tech.value }}</li>
-      {% endfor %}
-    </ul>
-  {% endif %}
-  {% if page.enlace_demo %}
-    <p><a href="{{ page.enlace_demo }}">Ver demo</a></p>
-  {% endif %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+
+      <h1 class="display-5 fw-bold text-primary mb-3 text-center">{{ page.title }}</h1>
+
+      {% if page.subtitulo %}
+        <h3 class="text-secondary text-center mb-4">{{ page.subtitulo }}</h3>
+      {% endif %}
+
+      {% if page.imagen_destacada %}
+        <div class="mb-4 text-center">
+          <img src="{{ page.imagen_destacada.url }}" alt="{{ page.title }}" class="img-fluid rounded shadow-sm" style="max-height: 400px; object-fit: cover;">
+        </div>
+      {% endif %}
+
+      {% if page.descripcion %}
+        <div class="bg-white p-4 rounded shadow-sm text-gray-800 mb-4">
+          {{ page.descripcion|richtext }}
+        </div>
+      {% endif %}
+
+      {% if page.enlace %}
+        <div class="text-center mt-4">
+          <a href="{{ page.enlace }}" target="_blank" class="btn btn-accent btn-lg px-5 py-2 fw-semibold hover:bg-blue-800 transition">
+            Ver Proyecto
+          </a>
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
 {% endblock %}

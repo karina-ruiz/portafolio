@@ -1,13 +1,41 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block title %}Servicios - Mi Portafolio{% endblock %}
+
 {% block content %}
-  <h1>{{ page.title }}</h1>
-  <div>{{ page.descripcion|richtext }}</div>
-  <ul>
-    {% for service in page.get_children.live %}
-      <li>
-        <a href="{% pageurl service.specific %}">{{ service.specific.titulo }}</a>
-      </li>
+<div class="container py-5">
+  <h1 class="display-5 fw-bold text-primary text-center mb-4">Servicios profesionales</h1>
+
+  {% if page.descripcion %}
+    <div class="intro-section lead text-gray-800 text-center mx-auto mb-5" style="max-width: 800px;">
+      {{ page.descripcion|richtext }}
+    </div>
+  {% endif %}
+
+  <div class="row gy-4">
+    {% for servicio in page.get_children.live %}
+      {% with servicio_page=servicio.specific %}
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 border-0 shadow-sm hover-scale">
+            {% if servicio_page.icono %}
+              <div class="p-4 text-center">
+                <img src="{{ servicio_page.icono.url }}" alt="{{ servicio_page.titulo }}" class="icono-servicio mb-3">
+              </div>
+            {% endif %}
+            <div class="card-body text-center">
+              <h5 class="card-title text-primary fw-semibold mb-2">{{ servicio_page.titulo }}</h5>
+              <p class="card-text text-gray-700 mb-3">{{ servicio_page.descripcion }}</p>
+              {% if servicio_page.enlace %}
+                <a href="{{ servicio_page.enlace }}" class="btn btn-accent px-4 py-2">Más información</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endwith %}
+    {% empty %}
+      <p class="text-center text-gray-600">No hay servicios disponibles en este momento.</p>
     {% endfor %}
-  </ul>
+  </div>
+</div>
 {% endblock %}

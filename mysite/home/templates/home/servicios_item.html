@@ -1,14 +1,35 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailimages_tags %}
+
+{% block title %}{{ page.titulo }} - Servicios{% endblock %}
+
 {% block content %}
-  <h1>{{ page.titulo }}</h1>
-  {% if page.icono %}
-    {% image page.icono original as icon %}
-      <img src="{{ icon.url }}" alt="{{ page.titulo }}">
-    {% endimage %}
-  {% endif %}
-  <div>{{ page.descripcion }}</div>
-  {% if page.enlace %}
-    <a href="{{ page.enlace }}">Más información</a>
-  {% endif %}
+<section class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+
+      {% if page.icono %}
+        <div class="mb-4">
+          {% image page.icono fill-128x128 class="img-fluid" alt=page.titulo %}
+        </div>
+      {% endif %}
+
+      <h1 class="fw-bold text-primary mb-3">{{ page.titulo }}</h1>
+
+      <p class="lead text-secondary mb-4" style="white-space: pre-line;">{{ page.descripcion }}</p>
+
+      {% if page.enlace %}
+        <a href="{{ page.enlace }}" target="_blank" rel="noopener noreferrer" 
+          class="btn btn-success btn-lg px-4 py-2 fw-semibold text-white shadow-sm">
+          Más información
+        </a>
+      {% endif %}
+
+      <a href="{% pageurl page.get_parent %}" class="btn btn-link mt-4 d-block">
+        ← Volver a Servicios
+      </a>
+
+    </div>
+  </div>
+</section>
 {% endblock %}

@@ -1,6 +1,29 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
+
+{% block title %}{{ page.titulo }} - Servicio{% endblock %}
+
 {% block content %}
-  <h1>{{ page.title }}</h1>
-  <div>{{ page.gracias|richtext }}</div>
+<div class="container py-5">
+  <article class="mx-auto" style="max-width: 720px;">
+    <h1 class="text-primary fw-bold mb-4 text-center">{{ page.titulo }}</h1>
+
+    {% if page.icono %}
+      <div class="text-center mb-4">
+        <img src="{{ page.icono.url }}" alt="{{ page.titulo }}" class="img-fluid" style="max-height: 150px;">
+      </div>
+    {% endif %}
+
+    <p class="text-gray-800 fs-5 mb-4 text-justify">
+      {{ page.descripcion }}
+    </p>
+
+    {% if page.enlace %}
+      <div class="text-center">
+        <a href="{{ page.enlace }}" target="_blank" class="btn btn-accent btn-lg px-5 py-2 fw-semibold hover:bg-blue-800 transition">
+          Más información
+        </a>
+      </div>
+    {% endif %}
+  </article>
+</div>
 {% endblock %}

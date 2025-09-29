@@ -1,13 +1,36 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
 
-{% block title %}Bienvenido a Mi Sitio{% endblock %}
+{% block title %}{{ page.title }}{% endblock %}
 
 {% block content %}
-  <div class="jumbotron text-center">
-    <h1 class="display-4">¡Bienvenido a Mi Sitio!</h1>
-    <p class="lead">Aquí encontrarás información sobre nuestros proyectos y servicios.</p>
-    <hr class="my-4">
-    <p>Explora nuestras secciones para conocer más.</p>
-    <a class="btn btn-primary btn-lg" href="#" role="button">Comenzar</a>
+<div class="container my-5">
+  <div class="text-center">
+    {% if page.imagen_destacada %}
+      <img src="{{ page.imagen_destacada.url }}" alt="{{ page.title }}" class="img-fluid rounded mb-4" style="max-height: 300px; object-fit: cover;">
+    {% endif %}
+    
+    <h1 class="fw-bold text-primary mb-3">{{ page.title }}</h1>
+    
+    {% if page.subtitulo %}
+      <h3 class="text-secondary mb-4">{{ page.subtitulo }}</h3>
+    {% endif %}
   </div>
+  
+  {% if page.introduccion %}
+  <section class="intro-section bg-light rounded shadow-sm p-5 mx-auto mb-5" style="max-width: 700px; color: #333;">
+    <div class="intro-content fs-5 lh-lg">
+      {{ page.introduccion|richtext }}
+    </div>
+  </section>
+{% endif %}
+
+  {% if page.cta_texto and page.cta_enlace %}
+    <div class="text-center">
+      <a href="{{ page.cta_enlace }}" class="btn btn-primary btn-lg px-5 py-2 fw-semibold">
+        {{ page.cta_texto }}
+      </a>
+    </div>
+  {% endif %}
+</div>
 {% endblock %}
